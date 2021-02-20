@@ -1,13 +1,13 @@
-FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic
+FROM php:cli
 
 # set version label
 ARG BUILD_DATE
 ARG VERSION
 ARG CODE_RELEASE
-LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
-LABEL maintainer="aptalca"
+LABEL build_version="ajvolin version:- ${VERSION} Build-date:- ${BUILD_DATE}"
+LABEL maintainer="Adam Volin <ajvolin@gmail.com>"
 
-# environment settings
+# environment settings
 ENV HOME="/config"
 
 RUN \
@@ -16,7 +16,7 @@ RUN \
  apt-get install -y \
 	gnupg && \
  curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
- echo 'deb https://deb.nodesource.com/node_12.x bionic main' \
+ echo 'deb https://deb.nodesource.com/node_12.x buster main' \
 	> /etc/apt/sources.list.d/nodesource.list && \
  curl -s https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
  echo 'deb https://dl.yarnpkg.com/debian/ stable main' \
@@ -30,14 +30,24 @@ RUN \
 	libsecret-1-dev \
 	pkg-config && \
  echo "**** install runtime dependencies ****" && \
- apt-get install -y \
+ apt-get purge --auto-remove -y npm && \
+ apt-get install -f -y \
 	git \
 	jq \
 	nano \
 	net-tools \
-	nodejs \
 	sudo \
-	yarn && \
+	yarn \
+    locales \
+    mosh \
+    nodejs-dev \
+    openconnect \
+    openssh-client \
+    openssh-server \
+    sshuttle \
+    wget \
+    unzip \
+    zip && \
  echo "**** install code-server ****" && \
  if [ -z ${CODE_RELEASE+x} ]; then \
 	CODE_RELEASE=$(curl -sX GET "https://api.github.com/repos/cdr/code-server/releases/latest" \
@@ -58,7 +68,11 @@ RUN \
  rm -rf \
 	/tmp/* \
 	/var/lib/apt/lists/* \
-	/var/tmp/*
+	/var/tmp/* && \
+    locale-gen "en_US.UTF-8" && \
+    wget https://raw.githubusercontent.com/composer/getcomposer.org/fa8ea54c9ba4dc3b13111fb4707f9c3b2d4681f6/web/installer -O - -q | php -- --quiet --install-dir=/usr/local/bin --filename=composer
+
+RUN chmod o+x /usr/local/bin/composer
 
 # add local files
 COPY /root /
