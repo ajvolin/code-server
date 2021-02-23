@@ -119,6 +119,7 @@ RUN	mkdir -p \
 	useradd -u 911 -U -d /config -s /bin/bash appuser && \
 	# Symlink php8 to php
     ln -sf /usr/bin/php8 /usr/bin/php && \
+	ln -sf /usr/bin/pecl8 /usr/bin/pecl && \
 	# Install composer
     curl -s https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer | \
     php -- --quiet --install-dir=/usr/local/bin --filename=composer && \
