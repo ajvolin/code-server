@@ -68,7 +68,7 @@ RUN apk add --update --no-cache \
     rm -rf /var/cache/apk/*
 
 # Setup
-RUN useradd -u 911 -U -d /config -s /bin/false appuser && \
+RUN useradd -u 911 -U -d /config -s /bin/bash appuser && \
     mkdir -p \
         /app \
         /config \
