@@ -73,8 +73,6 @@ RUN useradd -u 911 -U -d /config -s /bin/false appuser && \
         /app \
         /config \
         /defaults && \
-    mv /usr/bin/with-contenv /usr/bin/with-contenvb && \
-	patch -u /etc/s6/init/init-stage2 -i /tmp/patch/etc/s6/init/init-stage2.patch && \
     ln -sf /usr/bin/php8 /usr/bin/php && \
     wget https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer -O - -q | \
     php -- --quiet --install-dir=/usr/local/bin --filename=composer && \
