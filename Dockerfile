@@ -6,7 +6,7 @@ LANGUAGE="en_US.UTF-8" \
 LANG="en_US.UTF-8" \
 LD_LIBRARY_PATH="/usr/local/instantclient" \
 ORACLE_HOME="/usr/local/instantclient" \
-PATH="$PATH:/opt/mssql-tools/bin"
+PATH=$PATH:/opt/mssql-tools/bin
 
 # Add s6-overlay
 ADD https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-amd64-installer /tmp/
