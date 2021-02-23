@@ -51,6 +51,7 @@ RUN apk add --update --no-cache \
                         openconnect \
                         openssh \
                         oniguruma-dev \
+						shadow \
                         sudo \
                         tzdata \
                         unzip \
@@ -66,7 +67,7 @@ RUN apk add --update --no-cache \
     rm -rf /var/cache/apk/*
 
 # Setup
-RUN adduser -u 911 -g "" -D -h /config -s /bin/false appuser && \
+RUN useradd -u 911 -U -d /config -s /bin/false appuser && \
     mkdir -p \
         /app \
         /config \
