@@ -13,74 +13,80 @@ ADD https://github.com/just-containers/s6-overlay/releases/latest/download/s6-ov
 # Install s6-overlay
 RUN chmod +x /tmp/s6-overlay-amd64-installer && \
     /tmp/s6-overlay-amd64-installer /
-#Install and packages
-RUN	apk add --no-cache \
-						# PHP 8 and Python
-                        php8 \
-                        php8-bcmath \
-                        php8-bz2 \
-                        php8-ctype \
-                        php8-curl \
-                        php8-dom \
-                        php8-exif \
-                        php8-fileinfo \
-                        php8-fpm \
-                        php8-gd \
-                        php8-iconv \    
-                        php8-json \
-						php8-ldap \
-                        php8-mbstring \
-						php8-odbc \
-                        php8-openssl \
-                        php8-pcntl \
-                        php8-pdo \
-                        php8-pdo_sqlite \
-						php8-pear \
-                        php8-phar \
-                        php8-session \
-                        php8-sqlite3 \
-                        php8-tokenizer \
-                        php8-xml \
-                        php8-xmlwriter \
-                        python3 \
-						python3-dev \
-						py3-pip \
-						# Utils
-						bash \
-                        curl \
-                        git \
-						gnupg \
-                        jq \
-                        libxml2-dev \
-                        libpng-dev \
-                        mosh \
-                        nano \
-                        net-tools \
-                        nodejs \
-						npm \
-                        openconnect \
-                        openssh \
-						shadow \
-                        sudo \
-                        tzdata \
-                        unzip \
-                        wget \
-                        zip \
-						# Build dependencies
-                        alpine-sdk \
-                        autoconf \
-						gcc \
-						g++ \
-						libaio \
-						libc6-compat \
-						libnsl \
-						libsecret-dev \
-                        libstdc++ \
-                        libx11-dev \
-                        libxkbfile-dev \
-						make \
-						musl-dev \
-						php8-dev && \
+
+# Install and configure stage
+RUN	mkdir -p \
+        /app \
+        /config \
+        /defaults && \
+ 	# Install packages
+	apk add --no-cache \
+		# PHP 8 and Python
+		php8 \
+		php8-bcmath \
+		php8-bz2 \
+		php8-ctype \
+		php8-curl \
+		php8-dom \
+		php8-exif \
+		php8-fileinfo \
+		php8-fpm \
+		php8-gd \
+		php8-iconv \    
+		php8-json \
+		php8-ldap \
+		php8-mbstring \
+		php8-odbc \
+		php8-openssl \
+		php8-pcntl \
+		php8-pdo \
+		php8-pdo_sqlite \
+		php8-pear \
+		php8-phar \
+		php8-session \
+		php8-sqlite3 \
+		php8-tokenizer \
+		php8-xml \
+		php8-xmlwriter \
+		python3 \
+		python3-dev \
+		py3-pip \
+		# Utils
+		bash \
+		curl \
+		git \
+		gnupg \
+		jq \
+		libxml2-dev \
+		libpng-dev \
+		mosh \
+		nano \
+		net-tools \
+		nodejs \
+		npm \
+		openconnect \
+		openssh \
+		shadow \
+		sudo \
+		tzdata \
+		unzip \
+		wget \
+		zip \
+		# Build dependencies
+		alpine-sdk \
+		autoconf \
+		gcc \
+		g++ \
+		libaio \
+		libc6-compat \
+		libnsl \
+		libsecret-dev \
+		libstdc++ \
+		libx11-dev \
+		libxkbfile-dev \
+		make \
+		musl-dev \
+		php8-dev && \
 	# Add mssql drivers
 	curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_17.7.1.1-1_amd64.apk && \
 	curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/mssql-tools_17.7.1.1-1_amd64.apk && \
@@ -109,12 +115,9 @@ RUN	apk add --no-cache \
 	ln -s ${ORACLE_HOME}/sqlplus /usr/bin/sqlplus && \
 	ln -s /usr/lib/libnsl.so.2.0.0 /usr/lib/libnsl.so.1 && \
 
-	# Add user and setup directories
+	# Add user
 	useradd -u 911 -U -d /config -s /bin/bash appuser && \
-    mkdir -p \
-        /app \
-        /config \
-        /defaults && \
+	# Symlink php8 to php
     ln -sf /usr/bin/php8 /usr/bin/php && \
 	# Install composer
     curl -s https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer | \
@@ -142,19 +145,19 @@ RUN	apk add --no-cache \
     npm install -g --unsafe-perm code-server && \
 	# Cleanup
 	apk del alpine-sdk \
-			autoconf \
-			gcc \
-			g++ \
-			libaio \
-			libc6-compat \
-			libsecret-dev \
-			libnsl \
-			libstdc++ \
-			libx11-dev \
-			libxkbfile-dev \
-			make \
-			musl-dev \
-			php8-dev && \
+		autoconf \
+		gcc \
+		g++ \
+		libaio \
+		libc6-compat \
+		libsecret-dev \
+		libnsl \
+		libstdc++ \
+		libx11-dev \
+		libxkbfile-dev \
+		make \
+		musl-dev \
+		php8-dev && \
   	rm -rf /tmp/*.zip /tmp/pear/
 
 # Copy s6 config files
