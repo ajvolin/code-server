@@ -14,7 +14,7 @@ else
 fi
 
 exec \
-	s6-setuidgid abc \
+	s6-setuidgid appuser \
 		/usr/bin/code-server \
 			--bind-addr 0.0.0.0:8443 \
 			--user-data-dir /config/data \
