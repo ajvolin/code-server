@@ -73,8 +73,8 @@ RUN	apk add --no-cache \
 						g++ \
 						libaio \
 						libc6-compat \
+						libnsl \
 						libsecret-dev \
-						libsnl \
                         libstdc++ \
                         libx11-dev \
                         libxkbfile-dev \
@@ -148,7 +148,7 @@ RUN	apk add --no-cache \
 			libaio \
 			libc6-compat \
 			libsecret-dev \
-			libsnl \
+			libnsl \
 			libstdc++ \
 			libx11-dev \
 			libxkbfile-dev \
