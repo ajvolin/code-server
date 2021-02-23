@@ -10,10 +10,11 @@ PATH="$PATH:/opt/mssql-tools/bin"
 
 # Add s6-overlay
 ADD https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-amd64-installer /tmp/
-# Install s6-overlay and packages
+# Install s6-overlay
 RUN chmod +x /tmp/s6-overlay-amd64-installer && \
     /tmp/s6-overlay-amd64-installer / && \
-	apk add --no-cache \
+#Install and packages
+RUN	apk add --no-cache \
 						# PHP 8 and Python
                         php8 \
                         php8-bcmath \
