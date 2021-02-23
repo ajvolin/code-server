@@ -69,6 +69,7 @@ RUN	mkdir -p \
 		shadow \
 		sudo \
 		tzdata \
+		unixodbc-dev \
 		unzip \
 		wget \
 		zip \
