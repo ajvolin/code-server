@@ -4,16 +4,16 @@ LABEL maintainer="Adam Volin <ajvolin@gmail.com>"
 ENV HOME="/config" \
 LANGUAGE="en_US.UTF-8" \
 LANG="en_US.UTF-8" \
-LD_LIBRARY_PATH /usr/local/instantclient \
-ORACLE_HOME /usr/local/instantclient \
-PATH=$PATH:/opt/mssql-tools/bin
+LD_LIBRARY_PATH="/usr/local/instantclient" \
+ORACLE_HOME="/usr/local/instantclient" \
+PATH="$PATH:/opt/mssql-tools/bin"
 
 # Add s6-overlay
 ADD https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-amd64-installer /tmp/
-# Install s6-overlay and apk packages
+# Install s6-overlay and packages
 RUN chmod +x /tmp/s6-overlay-amd64-installer && \
     /tmp/s6-overlay-amd64-installer / && \
-	apk add --update --no-cache \
+	apk add --no-cache \
 						# PHP 8 and Python
                         php8 \
                         php8-bcmath \
@@ -27,7 +27,7 @@ RUN chmod +x /tmp/s6-overlay-amd64-installer && \
                         php8-gd \
                         php8-iconv \    
                         php8-json \
-						php8-ldap
+						php8-ldap \
                         php8-mbstring \
 						php8-odbc \
                         php8-openssl \
@@ -89,7 +89,7 @@ RUN chmod +x /tmp/s6-overlay-amd64-installer && \
 	gpg --import - && \
 	gpg --verify msodbcsql17_17.7.1.1-1_amd64.sig msodbcsql17_17.7.1.1-1_amd64.apk && \
 	gpg --verify mssql-tools_17.7.1.1-1_amd64.sig mssql-tools_17.7.1.1-1_amd64.apk && \
-	echo y | apk add --allow-untrusted msodbcsql17_17.7.1.1-1_amd64.apk \
+	echo y | apk add --no-cache --allow-untrusted msodbcsql17_17.7.1.1-1_amd64.apk \
 										mssql-tools_17.7.1.1-1_amd64.apk && \
 	# Remove apk cache
 	rm -rf /var/cache/apk/* && \
@@ -116,7 +116,7 @@ RUN chmod +x /tmp/s6-overlay-amd64-installer && \
         /defaults && \
     ln -sf /usr/bin/php8 /usr/bin/php && \
 	# Install composer
-    wget https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer -O - -q | \
+    curl -s https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer | \
     php -- --quiet --install-dir=/usr/local/bin --filename=composer && \
     chmod o+x /usr/local/bin/composer && \
 	# Install PHP sqlsrv drivers
