@@ -160,7 +160,7 @@ RUN	mkdir -p \
 		make \
 		musl-dev \
 		php8-dev && \
-  	rm -rf /tmp/*.zip /tmp/pear/
+  	rm -rf /tmp/*.zip /tmp/pear/ /msodbc* /mssql-tools*
 
 # Copy s6 config files
 COPY root/ /
