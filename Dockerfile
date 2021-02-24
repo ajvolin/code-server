@@ -129,7 +129,8 @@ RUN chmod +x /tmp/s6-overlay-amd64-installer && \
 	ln -sf ${ORACLE_HOME}/lib* /usr/lib && \
 	ln -sf ${ORACLE_HOME}/sqlplus /usr/bin/sqlplus && \
 	ln -sf /usr/lib/libnsl.so.2.0.1 /usr/lib/libnsl.so.1 && \
-    ln -sf libc.so /usr/lib/libresolv.so.2 && \
+    ln -sf /lib/libc.so.6 /usr/lib/libresolv.so.2 && \
+	ln -sf /lib64/ld-linux-x86-64.so.2 /usr/lib/ld-linux-x86-64.so.2 && \
 
 	# Add user
 	useradd -u 911 -U -d /config -s /bin/bash appuser && \
@@ -161,17 +162,6 @@ RUN chmod +x /tmp/s6-overlay-amd64-installer && \
     npm config set python python3 && \
     npm install -g --unsafe-perm code-server && \
 	# Cleanup
-	apk del alpine-sdk \
-		autoconf \
-		gcc \
-		g++ \
-		libc6-compat \
-		libsecret-dev \
-		libstdc++ \
-		libx11-dev \
-		libxkbfile-dev \
-		make \
-		musl-dev && \
   	rm -rf /tmp/*.zip /tmp/pear/ /msodbc* /mssql-tools*
 
 # Copy s6 config files
