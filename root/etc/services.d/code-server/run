@@ -13,6 +13,12 @@ else
   PROXY_DOMAIN_ARG="--proxy-domain=${PROXY_DOMAIN}"
 fi
 
+if [ -z ${HOME_LINK+x} ]; then
+  HOME_LINK_ARG=""
+else
+  HOME_LINK_ARG="--link=${HOME_LINK}"
+fi
+
 exec \
 	s6-setuidgid appuser \
 		/usr/bin/code-server \
@@ -22,4 +28,5 @@ exec \
 			--disable-telemetry \
 			--auth "${AUTH}" \
 			"${PROXY_DOMAIN_ARG}" \
+			"${HOME_LINK}" \
 			/config/workspace
