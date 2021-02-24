@@ -43,7 +43,7 @@ RUN chmod +x /tmp/s6-overlay-amd64-installer && \
 		php8-pcntl \
 		php8-pdo \
 		php8-pdo_mysql \
-		php8-pdo_pgsql
+		php8-pdo_pgsql \
 		php8-pdo_sqlite \
 		php8-pear \
 		php8-phar \
