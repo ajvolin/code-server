@@ -28,5 +28,5 @@ exec \
 			--disable-telemetry \
 			--auth "${AUTH}" \
 			"${PROXY_DOMAIN_ARG}" \
-			"${HOME_LINK}" \
+			"${HOME_LINK_ARG}" \
 			/config/workspace
