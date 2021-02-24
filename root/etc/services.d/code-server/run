@@ -16,7 +16,7 @@ fi
 if [ -z ${HOME_LINK+x} ]; then
   HOME_LINK_ARG=""
 else
-  HOME_LINK_ARG="--link=${HOME_LINK}"
+  HOME_LINK_ARG="--home=${HOME_LINK}"
 fi
 
 exec \
