@@ -117,18 +117,19 @@ RUN chmod +x /tmp/s6-overlay-amd64-installer && \
 	rm -rf /var/cache/apk/* && \
 
 	# Download and unarchive Instant Client v11
-	curl -o /tmp/basic.zip https://raw.githubusercontent.com/bumpx/oracle-instantclient/master/instantclient-basic-linux.x64-11.2.0.4.0.zip && \
-	curl -o /tmp/sdk.zip https://raw.githubusercontent.com/bumpx/oracle-instantclient/master/instantclient-sdk-linux.x64-11.2.0.4.0.zip && \
-	curl -o /tmp/sqlplus.zip https://raw.githubusercontent.com/bumpx/oracle-instantclient/master/instantclient-sqlplus-linux.x64-11.2.0.4.0.zip && \
+	curl -o /tmp/basic.zip https://download.oracle.com/otn_software/linux/instantclient/211000/instantclient-basic-linux.x64-21.1.0.0.0.zip && \
+	curl -o /tmp/sdk.zip https://download.oracle.com/otn_software/linux/instantclient/211000/instantclient-sdk-linux.x64-21.1.0.0.0.zip && \
+	curl -o /tmp/sqlplus.zip https://download.oracle.com/otn_software/linux/instantclient/211000/instantclient-sqlplus-linux.x64-21.1.0.0.0.zip && \
 	unzip -d /usr/local/ /tmp/basic.zip && \
 	unzip -d /usr/local/ /tmp/sdk.zip && \
 	unzip -d /usr/local/ /tmp/sqlplus.zip && \
-	ln -s /usr/local/instantclient_11_2 ${ORACLE_HOME} && \
-	ln -s ${ORACLE_HOME}/libclntsh.so.* ${ORACLE_HOME}/libclntsh.so && \
-	ln -s ${ORACLE_HOME}/libocci.so.* ${ORACLE_HOME}/libocci.so && \
-	ln -s ${ORACLE_HOME}/lib* /usr/lib && \
-	ln -s ${ORACLE_HOME}/sqlplus /usr/bin/sqlplus && \
-	ln -s /usr/lib/libnsl.so.2.0.0 /usr/lib/libnsl.so.1 && \
+	ln -sf /usr/local/instantclient_21_1 ${ORACLE_HOME} && \
+	ln -sf ${ORACLE_HOME}/libclntsh.so.* ${ORACLE_HOME}/libclntsh.so && \
+	ln -sf ${ORACLE_HOME}/libocci.so.* ${ORACLE_HOME}/libocci.so && \
+	ln -sf ${ORACLE_HOME}/lib* /usr/lib && \
+	ln -sf ${ORACLE_HOME}/sqlplus /usr/bin/sqlplus && \
+	ln -sf /usr/lib/libnsl.so.2.0.1 /usr/lib/libnsl.so.1 && \
+    ln -sf libc.so /usr/lib/libresolv.so.2 && \
 
 	# Add user
 	useradd -u 911 -U -d /config -s /bin/bash appuser && \
@@ -164,10 +165,8 @@ RUN chmod +x /tmp/s6-overlay-amd64-installer && \
 		autoconf \
 		gcc \
 		g++ \
-		libaio \
 		libc6-compat \
 		libsecret-dev \
-		libnsl \
 		libstdc++ \
 		libx11-dev \
 		libxkbfile-dev \
