@@ -7,12 +7,10 @@ LANG="en_US.UTF-8"
 
 # Add s6-overlay
 ADD https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-aarch64-installer /tmp/
-# Install s6-overlay
+# Install and configure
 RUN chmod +x /tmp/s6-overlay-aarch64-installer && \
-    /tmp/s6-overlay-aarch64-installer /
-
-# Install and configure stage
-RUN	mkdir -p \
+    /tmp/s6-overlay-aarch64-installer / && \
+	mkdir -p \
         /app \
         /config \
         /defaults && \
@@ -66,25 +64,16 @@ RUN	mkdir -p \
 		shadow \
 		sudo \
 		tzdata \
-		unixodbc-dev \
 		unzip \
 		wget \
 		zip \
 		# Build dependencies
 		alpine-sdk \
-		autoconf \
-		gcc \
-		g++ \
-		libaio \
 		libc6-compat \
-		libnsl \
 		libsecret-dev \
 		libstdc++ \
 		libx11-dev \
-		libxkbfile-dev \
-		make \
-		musl-dev \
-		php8-dev && \
+		libxkbfile-dev && \
 
 	# Remove apk cache
 	rm -rf /var/cache/apk/* && \
@@ -106,19 +95,11 @@ RUN	mkdir -p \
     npm install -g --unsafe-perm code-server && \
 	# Cleanup
 	apk del alpine-sdk \
-		autoconf \
-		gcc \
-		g++ \
-		libaio \
 		libc6-compat \
 		libsecret-dev \
-		libnsl \
 		libstdc++ \
 		libx11-dev \
-		libxkbfile-dev \
-		make \
-		musl-dev \
-		php8-dev && \
+		libxkbfile-dev && \
   	rm -rf /tmp/*.zip /tmp/pear/
 
 # Copy s6 config files
@@ -129,3 +110,6 @@ EXPOSE 8443
 
 # Register entry point
 ENTRYPOINT ["/init"]
+
+# Register healthcheck
+HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:8443/healthz

@@ -10,12 +10,10 @@ PATH=$PATH:/opt/mssql-tools/bin
 
 # Add s6-overlay
 ADD https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-amd64-installer /tmp/
-# Install s6-overlay
+# Install and configure
 RUN chmod +x /tmp/s6-overlay-amd64-installer && \
-    /tmp/s6-overlay-amd64-installer /
-
-# Install and configure stage
-RUN	mkdir -p \
+    /tmp/s6-overlay-amd64-installer / && \
+	mkdir -p \
         /app \
         /config \
         /defaults && \
@@ -170,3 +168,6 @@ EXPOSE 8443
 
 # Register entry point
 ENTRYPOINT ["/init"]
+
+# Register healthcheck
+HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:8443/healthz
