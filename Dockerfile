@@ -165,7 +165,7 @@ RUN chmod +x /tmp/s6-overlay-amd64-installer && \
   	rm -rf /tmp/*.zip /tmp/pear/ /msodbc* /mssql-tools*
 
 # Copy s6 config files
-COPY root/ /
+COPY root/etc/ /etc/
 
 # Expose port 8443
 EXPOSE 8443
