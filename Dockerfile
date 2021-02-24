@@ -25,27 +25,42 @@ RUN chmod +x /tmp/s6-overlay-amd64-installer && \
 		php8-bz2 \
 		php8-ctype \
 		php8-curl \
+		php8-dev \
 		php8-dom \
 		php8-exif \
 		php8-fileinfo \
-		php8-fpm \
+		php8-ftp \
 		php8-gd \
-		php8-iconv \    
+		php8-gettext \
+		php8-iconv \  
+		php8-imap \  
 		php8-json \
 		php8-ldap \
 		php8-mbstring \
+		php8-mysqli \
 		php8-odbc \
 		php8-openssl \
 		php8-pcntl \
 		php8-pdo \
+		php8-pdo_mysql \
+		php8-pdo_pgsql
 		php8-pdo_sqlite \
 		php8-pear \
 		php8-phar \
+		php8-phpdbg \
+		php8-pgsql \
 		php8-session \
+		php8-simplexml \
+		php8-soap \
+		php8-sockets \
 		php8-sqlite3 \
+		php8-tidy \
 		php8-tokenizer \
 		php8-xml \
+		php8-xmlreader \
 		php8-xmlwriter \
+		php8-xsl \
+		php8-zip \
 		python3 \
 		python3-dev \
 		py3-pip \
@@ -84,8 +99,8 @@ RUN chmod +x /tmp/s6-overlay-amd64-installer && \
 		libx11-dev \
 		libxkbfile-dev \
 		make \
-		musl-dev \
-		php8-dev && \
+		musl-dev && \
+
 	# Add mssql drivers
 	curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_17.7.1.1-1_amd64.apk && \
 	curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/mssql-tools_17.7.1.1-1_amd64.apk && \
@@ -97,6 +112,7 @@ RUN chmod +x /tmp/s6-overlay-amd64-installer && \
 	gpg --verify mssql-tools_17.7.1.1-1_amd64.sig mssql-tools_17.7.1.1-1_amd64.apk && \
 	echo y | apk add --no-cache --allow-untrusted msodbcsql17_17.7.1.1-1_amd64.apk \
 										mssql-tools_17.7.1.1-1_amd64.apk && \
+
 	# Remove apk cache
 	rm -rf /var/cache/apk/* && \
 
@@ -156,8 +172,7 @@ RUN chmod +x /tmp/s6-overlay-amd64-installer && \
 		libx11-dev \
 		libxkbfile-dev \
 		make \
-		musl-dev \
-		php8-dev && \
+		musl-dev && \
   	rm -rf /tmp/*.zip /tmp/pear/ /msodbc* /mssql-tools*
 
 # Copy s6 config files
