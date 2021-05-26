@@ -2,8 +2,8 @@ FROM alpine:3.13
 LABEL maintainer="Adam Volin <ajvolin@gmail.com>"
 
 ENV HOME="/config" \
-LANGUAGE="en_US.UTF-8" \
 LANG="en_US.UTF-8" \
+LANGUAGE="en_US.UTF-8" \
 LD_LIBRARY_PATH="/usr/local/instantclient" \
 ORACLE_HOME="/usr/local/instantclient" \
 PATH=$PATH:/opt/mssql-tools/bin
