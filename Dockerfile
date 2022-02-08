@@ -151,7 +151,7 @@ RUN chmod +x /tmp/s6-overlay-amd64-installer && \
 		grep "Scan for additional .ini files" | \
 		sed -e "s|.*:\s*||"`/00_sqlsrv.ini && \
 	# Install OCI8 drivers
-	echo "instantclient,${ORACLE_HOME}" | pecl install oci8 && \
+	echo "instantclient,${ORACLE_HOME}" | pecl install oci8-3.0.1 && \
 	echo extension=oci8.so >> `php --ini | \
 		grep "Scan for additional .ini files" | \
 		sed -e "s|.*:\s*||"`/30_oci8.ini && \
