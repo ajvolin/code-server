@@ -159,6 +159,7 @@ RUN chmod +x /tmp/s6-overlay-amd64-installer && \
     pip3 install sshuttle && \
 	# Update npm and install code-server
     npm install -g npm && \
+    npm audit fix && \
     npm config set python python3 && \
     npm install -g --unsafe-perm code-server && \
 	# Cleanup
