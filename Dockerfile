@@ -1,4 +1,4 @@
-FROM alpine:3.15
+FROM alpine:3.13
 LABEL maintainer="Adam Volin <ajvolin@gmail.com>"
 
 ENV HOME="/config" \
@@ -9,7 +9,7 @@ ORACLE_HOME="/usr/local/instantclient" \
 PATH=$PATH:/opt/mssql-tools/bin
 
 # Add s6-overlay
-ADD https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-amd64-installer /tmp/
+ADD https://github.com/just-containers/s6-overlay/releases/download/v2.2.0.3/s6-overlay-amd64-installer /tmp/
 # Install and configure
 RUN chmod +x /tmp/s6-overlay-amd64-installer && \
     /tmp/s6-overlay-amd64-installer / && \
