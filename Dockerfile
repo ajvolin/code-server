@@ -1,4 +1,4 @@
-FROM alpine:3.13
+FROM alpine:3.15
 LABEL maintainer="Adam Volin <ajvolin@gmail.com>"
 
 ENV HOME="/config" \
